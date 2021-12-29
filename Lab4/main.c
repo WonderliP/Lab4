@@ -1,338 +1,356 @@
-#define N 30
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
-
-void fill_array(int arr[][N], int a, int b)
+int ** fill_array(int **A, int a, int b)
 {
     int counter;
-    printf("The function of inputing elements of massive\n");
-
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = 0; j < b; j++)
+    for(int i=0; i < a; i++)
         {
-            arr[i][j] = 0;
+            for(int j=0;j < b; j++)
+                {
+                    printf(" Element [%d][%d] = ",i+1,j+1);
+                    scanf("%d",&A[i][j]);
+                    printf("\n");
+                }
         }
-    }
-
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = 0; j < b; j++)
-        {
-            printf("Press the element [%d][%d] of massive: ", i, j);
-            scanf("%d", &counter);
-            arr[i][j] = counter;
-        }
-    }
+    return A;
 }
-
-
-void print_array(int arr[][N], int a, int b)
+int ** print_array(int **A, int a, int b )
 {
-    for (int i = 0; i < a; i++)
+    for(int i = 0;i < a; i++)
     {
-        for (int j = 0; j < b; j++)
-        {
-            printf("%3d ", arr[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-
-void random_array(int arr[][N], int a, int b)
-{
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = 0; j < b; j++)
-        {
-            arr[i][j] = 0;
-        }
-    }
-
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = 0; j < b; j++)
-        {
-            arr[i][j] = rand() % 100 + 1;
-        }
-    }
-srand(time(NULL));
-}
-
-
-void sort_array(int arr[][N], int a, int b)
-{
-    int z, x, w, q;
-    for (w = 0; w < a*b; w++)
-    {
-        for (z = 0; z < b; z++)
-        {
-            for (x = 0; x < a; x++)
+            for(int j = 0; j < b; j++)
             {
-                if (x == 0 && z > 0)
-                {
-                  if (arr[z-1][b-1] > arr[z][x])
-                  {
-                  q = arr[z-1][b-1];
-                      arr[z-1][b-1] = arr[z][x];
-                      arr[z][x] = q;
-                  }
-                }
-                else if (arr[z][x-1] > arr[z][x])
-                {
-                q = arr[z][x-1];
-                    arr[z][x-1] = arr[z][x];
-                    arr[z][x] = q;
-                }
+                printf("%d \t", A[i][j]);
             }
-        }
-    }
-
-    for (z = 0; z < a; z++)
-    {
-        for (x = 0; x < b; x++)
-        {
-            printf("%3d ", arr[z][x]);
-        }
         printf("\n");
     }
 }
-
-
-void swap_array(int arr1[][N], int arr2[][N], int a, int b)
+int ** random_array(int **A, int a, int b)
 {
-    for (int i = 0; i < a; i++)
+    srand(time(NULL));
+    for(int i =0; i < a; i++)
     {
-        for (int j = 0; j < b; j++)
-        {
-            arr2[i][j] = arr1[i][j];
-        }
-    }
-
-}
-
-
-void transp_array(int B[][N], int a, int b)
-{
-    int F[b][a];
-    B[a][b];
-
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = 0; j < b; j++)
-        {
-            F[j][i] = B[i][j];
-        }
-    }
-
-    for (int i = 0; i < b; i++)
-    {
-        for (int j = 0; j < a; j++)
-        {
-            printf("%3d ", F[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-
-void dob_array(int A[][N], int B[][N], int a, int b, int c)
-{
-    int sum;
-    int D[a][c];
-
-        for (int j = 0; j < a; j++)
-        {
-            for (int h = 0; h < c; h++)
+            for(int j=0; j < b; j++)
             {
-                sum=0;
-                for (int g = 0; g < b; g++)
-                {
-                sum+=A[j][g]*B[g][h];
-                }
-                D[j][h]=sum;
+                A[i][j] = rand()%100 + 1;
             }
-        }
+    }
+}
 
-      for (int i = 0; i < a; i++)
+void transp_array(int **B, int a, int b)
+{
+     int D[b][a];
+    for(int i=0;i<a;i++)
     {
-        for (int j = 0; j < c; j++)
+       for(int j=0;j<b;j++)
+       {
+           D[j][i] = B[i][j];
+
+       }
+    }
+    for (int i=0; i<b; i++)
+    {
+        for(int j=0; j<a; j++)
         {
-            printf("%3d ", D[i][j]);
+            printf("%d \t", D[i][j]);
         }
         printf("\n");
     }
 }
 
-
-void sum_r_array(int A[][N], int h)
+void product_of_arrays(int **A, int **B, int nA, int nB, int mB)
 {
-    int G[N]={0};
-
-    printf("The sum of the elements of the rows of the matrix A\n");
-    for (int i = 0; i < h; i++)
-    {
-        for (int j = 0; j < h; j++)
+    int C[nA][mB];
+    for(int i = 0; i < nA; i++)
         {
-            G[i]+=A[i][j];
+            for(int j = 0; j < mB; j++)
+            {
+                C[i][j] = 0;
+                for(int k = 0; k < nB; k++)
+                    C[i][j] += A[i][k] * B[k][j];
+            }
         }
-    }
-    for (int i = 0; i < h; i++)
-    {
-    printf("%3d ", G[i]);
-    }
+        for (int i=0; i < nA; i++)
+        {
+            for(int j=0; j < mB; j++)
+            {
+                printf("%d \t", C[i][j]);
+            }
+            printf("\n");
+        }
 }
 
+ void sort_array(int **A, int nA, int k)
+ {
 
-void sum_s_array(int B[][N], int a, int b)
-{
-    int H[N]={0};
-
-    printf("The sum of the elements of the cols of the matrix B\n");
-    for (int i = 0; i < b; i++)
-    {
-        for (int j = 0; j < a; j++)
+   int A1[nA],temp,A_max,A_min,counter = 0;
+   for(int i = 0;i<nA;i++)
+   {
+       if(i==k)
+       {
+           for(int j = 0;j<nA;j++)
+           {
+               A1[j] = A[i][j];
+           }
+       }
+   }
+   printf("\n");
+   temp = A1[0];
+   A_min = A1[0];
+   A_max = A1[0];
+   int T;
+     for(int i = 0;i<nA;i++)
+     {
+        if(A1[i] > A_max)
         {
-            H[i]+=B[j][i];
+            A_max = A1[i];
+        }
+        if(A1[i] < A_min)
+        {
+            A_min = A1[i];
         }
     }
-    for (int i = 0; i < b; i++)
+    printf("\nA(max) = %d\n", A_max);
+    printf("\nA(min) = %d\n", A_min);
+    printf("row %d\n",k);
+   for(int i = 0;i<nA;i++)
+   {
+       printf("%d \t",A1[i]);
+   }
+   printf("\n");
+    do
     {
-    printf("%3d ", H[i]);
-    }
-}
-
-
-void max_min_array(int A[10][10], int a)
-{
- int vm=A[0][0], vn=A[0][0], nm=A[0][0], nn=A[0][0];
-
-    for (int i = 0; i < a; i++)
-    {
-        for (int j = i; j < a; j++)
+       counter = 0;
+       for(int i = 0;i<nA-1;i++)
+       {
+        if(A1[i]>A1[i+1])
         {
-            if (A[i][j] > vm) {
-                vm=A[i][j];
-                }
-            if (A[i][j] < vn) {
-                vn=A[i][j];
+            counter++;
+            temp = A1[i];
+            A1[i] = A1[i+1];
+            A1[i+1] = temp;
+        }
+       }
+    }while(counter !=0);
+   printf("sorted row %d\n",k);
+   for(int i = 0;i<nA;i++)
+   {
+       printf("%d \t",A1[i]);
+   }
+   printf("\n");
+ }
+
+ void max_min_above_array(int **A, int a)
+ {
+    printf("\n\nAbove the main diagonal\n");
+    int k = 0;
+    int A1[a];
+    int A_max = 0;
+    int A_min = 100;
+    for(int i = 0; i < a; i++)
+    {
+        for(int j = 0; j < a; j++)
+        {
+            if(i < j) {
+                A1[k] = A[i][j];
+                printf("A[%d][%d] =%d\t", i, j, A1[k]);
+                k++;
             }
         }
     }
-
-    for (int i = 0; i < a; i++)
+    for(int i = 0; i < k; i++)
     {
-        for (int j = 0; j <= i; j++)
+        if(A1[i] > A_max)
         {
-            if (A[i][j] > nm) {
-                nm=A[i][j];
-            }
-            if (A[i][j] < nn) {
-                nn=A[i][j];
+            A_max = A1[i];
+        }
+        if(A1[i] < A_min)
+        {
+
+            A_min = A1[i];
+        }
+    }
+    printf("\n\nA(max) = %d", A_max);
+    printf("\tA(min) = %d", A_min);
+ }
+ void max_min_below_array(int **A, int a)
+ {
+    printf("\n\nBelow the main diagonal\n");
+    int k = 0;
+    int A1[a];
+    int A_max = 0;
+    int A_min = 100;
+    for(int i = 0; i < a; i++)
+    {
+        for(int j = 0; j < a; j++)
+        {
+            if(i > j) {
+                A1[k] = A[i][j];
+                printf("A[%d][%d] =%d\t", i, j, A1[k]);
+                k++;
             }
         }
     }
-    printf("\nUpper the general diagonal the highest %3d and the lowest value %3d", vm, vn);
-    printf("\nBelow the general diagonal the highest %3d and the lowest value %3d", nm, nn);
+    for(int i = 0; i < k; i++)
+    {
+        if(A1[i] > A_max)
+        {
+            A_max = A1[i];
+        }
+        if(A1[i] < A_min)
+        {
+
+            A_min = A1[i];
+        }
+    }
+    printf("\n\nA(max) = %d", A_max);
+    printf("\tA(min) = %d", A_min);
 }
 
-
+int ** memoryAllocation(int rows, int cols)
+{
+    int i = 0;
+    int **matrix = (int **)malloc(rows*sizeof(int *));
+    for( i = 0; i < rows; i++)
+    {
+      matrix[i] = (int *)malloc(cols*sizeof(int));
+    }
+    return matrix;
+}
+void clearMemory(int **matrix, int rows)
+{
+    int i;
+    for(i = 0; i < rows; i++)
+    {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+void sum_rows_cols(int **arrayA, int rowsA, int colsA,int **arrayB, int rowsB, int colsB)
+{
+    int i,j,x;
+    printf("Sum rows A: \n");
+    for( i = 0; i < rowsA; i++)
+    {
+        x = 0;
+        for( j = 0; j < colsA; j++)
+        {
+            x+=arrayA[i][j];
+        }
+        printf("Row [%d] = %d \n",i+1,x);
+    }
+    printf("Sum cols B: \n");
+    for( i = 0; i < colsB; i++)
+    {
+        x = 0;
+        for( j = 0; j < rowsB; j++)
+        {
+            x+=arrayB[j][i];
+        }
+        printf("Col [%d] = %d \n",i+1,x);
+    }
+}
 int main()
 {
-    int na, nb, mb;
-    unsigned int m, metod, exit;
-
-
-    printf("Set the number of rows and cols for matrix A:");
-    scanf("%u",&na);
-    printf("Set the number of rows for matrix B:");
-    scanf("%u",&mb);
-    printf("Set the number of cols for matrix B:");
-    scanf("%u",&nb);
-    int A[na][na];
-    int B[nb][mb];
-    int C[na][na];
-    int L[nb][mb];
-
-    printf("\nBuild the matrix A with size %uX%u and the matrix B with the size %uX%u", na, na, nb, mb);
-    printf("\nChoose the method:\n\t|1-Set own values for the matrix\n\t|2-Do the automatic selection 1-100 of matrix\n");
-    scanf("%u",&m);
-    switch(m) {
-    case 1:
+    int nA, nB, mB;
+    int **A;
+    int **B;
+    unsigned int method, exit, k;
+    printf("Enter the size of the array A: ");
+    scanf("%d", &nA);
+    nA=nA;
+    printf("Enter the number of rows of array B: ");
+    scanf("%d", &nB);
+    printf("Enter the number of cols of array B: ");
+    scanf("%d", &mB);
+    A = memoryAllocation(nA,nA);
+    B = memoryAllocation(nB,mB);
+    printf("\nIf you want to enter from the keyboard - enter \"1\".");
+    printf("\nIf you want it to be asked initialization - enter \"2\".");
+    printf("\nYour choose: ");
+    scanf("%d", &method);
+    switch(method)
     {
-        fill_array(A, na, na);
-        fill_array(B, mb, nb);
-    break;
+        case 1:
+        {
+            printf("Your choose to enter from the keyboard");
+            fill_array(A, nA, nA);
+            fill_array(B, nB, mB);
+        break;
+        }
+        case 2:
+        {
+            printf("Your choose to be asked initialization");
+            random_array(A, nA, nA);
+            random_array(B, nB, mB);
+        break;
+        }
     }
-    case 2:
+    printf ("\nArray A\n\n");
+    print_array(A, nA, nA);
+    printf ("\nArray B\n\n");
+    print_array(B, nB, mB);
+    do
     {
-       random_array(A, na, na);
-       random_array(B, mb, nb);
-    break;
-    }
-    }
-
-    printf("\nOutput of the matrix A\n");
-    print_array(A, na, na);
-    printf("\nOutput of the matrix B\n");
-    print_array(B, mb, nb);
-    swap_array(A, C, na, na);
-    swap_array(B, L, mb, nb);
-
-    do{
-    printf("\nWhat would we do:\n\t|1-The looking for the maximal and minimal values above and below the general diagonal A\n\t|2-The transportation of matrix B");
-    printf("\n\t|3-The looking for product of the matrix A*B\n\t|4-Sort the matrix A from 0\n\t|5-To find the sum of the rows of the matrix A\n\t|6-To find the sum of the cols of the matrix B\n");
-    scanf("%u",&metod);
-    switch(metod) {
-    case 1:
-    {
-       max_min_array(C, na);
-    break;
-    }
-    case 2:
-    {
-     printf("\nOutput of transpontationed matrix B\n");
-     transp_array(L, mb, nb);
-    break;
-    }
-    case 3:
-    {
-     printf("\nOutput of the product of matrix A*B\n");
-     if (mb != na)
-     printf("Product of matrix is impossible!!!\n");
-     else
-     dob_array(A, B, na, na, nb);
-     printf("\n");
-    break;
-    }
-    case 4:
-    {
-     printf("\nOutput of sorted matrix A\n");
-     sort_array(C, na, na);
-    break;
-    }
-    case 5:
-    {
-     sum_r_array(C, na);
-    break;
-    }
-    case 6:
-    {
-     sum_s_array(B, mb, nb);
-    break;
-    }
-    }
-
-    printf("\nIf you want to exit of the program press the \"1\", but if you want to continue - press the \"2\"\n");
-    scanf("%u",&exit);
-    if (exit < 1 || 2 < exit) {
-        printf("\n1 or 2, no\n");
-        scanf("%u",&exit);
-    }
-    } while (exit > 1);
-
+        printf("\n\nFind the maximum element of the array A and the minimum of the elements above / below the main diagonal - enter the \"1\" ");
+        printf("\n\nTransportation of the array B - enter the \"2\" ");
+        printf("\n\nFind the product of the arrays A and B - enter the \"3\" ");
+        printf("\n\nSort the elements from minimum to maximum value in the array A - enter the \"4\"");
+        printf("\n\nTo find the sum of elements of rows of the array A and cols of the array B - enter the \"5\" ");
+        printf("\n\nChoose your method: ");
+        scanf("%d", &method);
+        switch(method)
+        {
+            case 1:
+            {
+                printf("\nFind the maximum element of the array A and the minimum of the elements above / below the main diagonal\n");
+                max_min_above_array(A, nA);
+                max_min_below_array(A, nA);
+                break;
+            }
+            case 2:
+            {
+                printf("\nTransportation of the array B\n\n");
+                transp_array(B, nB, mB);
+                break;
+            }
+            case 3:
+            {
+                printf("\nFind the product of the arrays A and B\n\n");
+                if(nA != nB)
+                {
+                        printf("The product of the arrays is impossible");
+                }
+                else
+                {
+                    product_of_arrays(A, B, nA, nB, mB);
+                }
+                break;
+            }
+            case 4:
+            {
+                printf("\nSort the elements from minimum to maximum value in the array A\n");
+                printf("\nSelect the row in which you want to sort the items. First row - \"k\" = 0, second row - \"k\" = 1 etc");
+                printf("\nk = ");
+                scanf("%d", &k);
+                sort_array(A, nA, k);
+                break;
+            }
+            case 5:
+            {
+                printf("\nTo find the sum of elements of rows of the array A and cols of the array B\n\n");
+                sum_rows_cols(A, nA, nA, B, nB, mB);
+                break;
+            }
+        }
+    printf("\nEnter \"1\" if you want to exit of the program.");
+    printf("\n\nEnter more than \"1\" if you want to continue the program: ");
+    scanf("%d", &exit);
+    }while(exit>1);
+    clearMemory(A,nA);
+    clearMemory(B,nB);
     return 0;
 }
